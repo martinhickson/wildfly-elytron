@@ -8,6 +8,7 @@ on:
       - 2.x
       - 2.2.x
       - 2.6.x
+      - maintenance
       - master
 
 jobs:
