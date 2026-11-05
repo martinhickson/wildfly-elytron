@@ -28,6 +28,18 @@
                             <goal>test-jar</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>empty-javadoc</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>javadoc</classifier>
+                            <forceCreation>true</forceCreation>
+                            <classesDirectory>${project.build.directory}/empty-javadoc</classesDirectory>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <!-- SOURCES -->

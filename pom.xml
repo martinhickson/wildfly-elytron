@@ -1511,6 +1511,10 @@
                             <doclint>none</doclint>
                             <failOnError>false</failOnError>
                             <failOnWarnings>false</failOnWarnings>
+                            <!-- The main plugin configuration sets an aggregate sourcepath
+                                 relative to the reactor root. Child modules inherit that path
+                                 and then produce no javadoc jar. -->
+                            <sourcepath>${project.build.sourceDirectory}</sourcepath>
                         </configuration>
                         <executions>
                             <execution>
@@ -1518,6 +1522,25 @@
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>empty-javadoc-dir</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <mkdir dir="${project.build.directory}/empty-javadoc"/>
+                                    </target>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
