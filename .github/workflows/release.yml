@@ -165,7 +165,11 @@ jobs:
           </settings>
           EOF
           echo "${MAVEN_CENTRAL_GPG_PRIVATE_KEY}" | gpg --batch --import --pinentry-mode loopback
+          # The groupId rewrite also rewrites the japicmp baseline. That baseline is
+          # upstream org.wildfly.security:*:2.6.3.Final, which the install step already
+          # compared. It does not exist under the Central groupId.
           mvn -B -ntp deploy -Pcentral-release -DskipTests -Dcheckstyle.skip -Denforcer.skip \
+            -Djapicmp.skip=true \
             -Dmaven.javadoc.failOnError=false \
             -Dgpg.passphrase="${MAVEN_CENTRAL_GPG_PASSPHRASE}"
           find /tmp/pom-backup -name pom.xml -print0 |
